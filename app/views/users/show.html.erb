@@ -4,7 +4,17 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
+        <br>
+        <%=@user.profile%>
       </h1>
+      <h2>
+        <span>
+          <%= link_to "view followers", followers_user_path(@user) %>
+        </span>
+        <span>
+          <%= link_to "view following", followings_user_path(@user) %>
+        </span>
+      </h2>
     </section>
   </aside>
   <div class="col-md-8">
