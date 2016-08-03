@@ -1,7 +1,9 @@
 <h1>following</h1>
  <h2>folower name：<%=@user.name%></h2> 
  <br>
-<% @users.each do |user| %>
+<div class="clearfix">
+  <% @users.each do |user| %>
   <%= gravatar_for(user, size: 50) %>
   followed name：<%= user.name %>
-<% end %>
+  <% end %>
+</div>
