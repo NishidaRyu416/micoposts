@@ -48,11 +48,9 @@ class User < ActiveRecord::Base
   def following?(other_user)
     following_users.include?(other_user)
   end
-<<<<<<< HEAD
-  
+
   #つぶやき取得
-=======
->>>>>>> c10986ae3dac31e4d50560afb8fcde3451dc2d7e
+
   def feed_items
     Micropost.where(user_id: following_user_ids + [self.id])
   end
