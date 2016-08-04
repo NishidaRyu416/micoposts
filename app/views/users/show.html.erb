@@ -3,28 +3,33 @@
     <section class="user_info">
       <h1>
         <%= gravatar_for @user %>
-        <%= @user.name %>
+        username：<%= @user.name %>
         <br>
         profile： <%=@user.profile%>
+        <br>
         location：<%=@user.location%>
       </h1>
-      <h2>
+      <p>
         <span>
           <%= link_to "view followers", followers_user_path(@user) %>
         </span>
         <span>
           <%= link_to "view following", followings_user_path(@user) %>
         </span>
-      </h2>
+      </p>
     </section>
   </aside>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
+    
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
+       <ol class="microposts">
+        <%= paginate(@users) %>
         <%= render @microposts %>
-      </ol>
+        <%= paginate(@users) %>
+        <%= page_entries_info(@users) %>
+        </ol> 
     <% end %>
   </div>
 </div>

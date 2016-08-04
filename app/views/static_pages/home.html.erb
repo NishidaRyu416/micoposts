@@ -12,7 +12,10 @@
     </aside>
      <div class="col-md-8">
       <h3>Micropost Feed</h3>
+      <%= paginate(@users) %>
       <%= render 'shared/feed' %>
+      <%= paginate(@users) %>
+      <%= page_entries_info(@users) %>
      </div>
   </div>
 <% else %>
