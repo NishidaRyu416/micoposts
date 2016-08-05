@@ -1,11 +1,7 @@
 class UsersController < ApplicationController
-   before_action :correct_user, only: [:edit, :update]
-   before_action :before, only: [:show, :edit, :update, :followings, :followers, :correct_user]
-  
-  def before
-    @user = User.find(params[:id])
-  end
-  
+  before_action :before, only: [:show, :edit, :update, :followings, :followers]
+  before_action :correct_user, only: [:edit, :update]
+ 
   def show
     @microposts = @user.microposts.order(created_at: :desc)
     @users = @microposts.page(params[:page]).per(10)
@@ -63,8 +59,13 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password,
                                  :password_confirmation ,:location, :profile)
   end
+  
+  def before
+    @user = User.find(params[:id])
+  end
 
   def correct_user
+    @user = User.find(params[:id])
     redirect_to root_path if @user != current_user
   end
 end
