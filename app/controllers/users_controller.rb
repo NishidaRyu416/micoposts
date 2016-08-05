@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
-  def show
+   before_action :correct_user, only: [:edit, :update]
+   before_action :before, only: [:show, :edit, :update, :followings, :followers, :correct_user]
+  
+  def before
     @user = User.find(params[:id])
+  end
+  
+  def show
     @microposts = @user.microposts.order(created_at: :desc)
     @users = @microposts.page(params[:page]).per(10)
-   end
+  end
   
   def new
     @user = User.new
@@ -28,11 +34,10 @@ class UsersController < ApplicationController
   end
     
   def edit
-   @user = User.find(params[:id])
   end
   
   def update
-    @user = User.find(params[:id])
+   
     if @user.update(user_params)
       flash[:success] = 'メッセージを編集しました'
       # 保存に成功した場合はトップページへリダイレクト
@@ -44,12 +49,10 @@ class UsersController < ApplicationController
   end
   
   def followings
-    @user = User.find(params[:id])
     @users=  @user.following_users
   end
   
   def followers
-    @user = User.find(params[:id])
     @users=  @user.follower_users
   end
 
@@ -62,7 +65,6 @@ class UsersController < ApplicationController
   end
 
   def correct_user
-    @user = User.find(params[:id])
     redirect_to root_path if @user != current_user
   end
 end
